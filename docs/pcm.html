@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>pcm - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Chain.html">Chain</a><ul class='methods'><li data-type='method'><a href="Chain.html#do">do</a></li><li data-type='method'><a href="Chain.html#run">run</a></li></ul></li><li><a href="opus.lame.LameEncoder.html">LameEncoder</a></li><li><a href="opus.OpusEncoder.html">OpusEncoder</a><ul class='methods'><li data-type='method'><a href="opus.OpusEncoder.html#.encode">encode</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="opus.html">opus</a></li><li><a href="pcm.html">pcm</a><ul class='methods'><li data-type='method'><a href="pcm.html#.volume16">volume16</a></li></ul></li><li><a href="sodium.html">sodium</a><ul class='methods'><li data-type='method'><a href="sodium.html#.encrypt">encrypt</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#do">do</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pcm</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        pcm
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pcm.js.html">pcm.js</a>, <a href="pcm.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+        
+            <div class="description"><p>PCM utilities</p></div>
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".volume16"><span class="type-signature">(static) </span>volume16<span class="signature">(data, volume<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#NativeFunction">NativeFunction</a>.&lt;Buffer.&lt;PCM>>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pcm.js.html">pcm.js</a>, <a href="pcm.js.html#line14">line 14</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Reduces/increases the volume</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Buffer.&lt;PCM></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Input PCM data</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>volume</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>1</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>Volume level, if set to 1 this will act as a passthrough</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>A native function to be run with a <a href="Chain.html"><code>Chain</code></a></li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#NativeFunction">NativeFunction</a>.&lt;Buffer.&lt;PCM>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 02 2018 01:56:23 GMT+0000 (UTC) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
