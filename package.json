@@ -1,0 +1,69 @@
+{
+  "name": "krypton",
+  "version": "0.1.0",
+  "description": "Fast voice for Discord",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm run cpplint && npm run clang-tidy && npm run eslint",
+    "cpplint": "./cpplint.py --linelength=200 --filter=-build/header_guard src/*",
+    "eslint": "eslint lib/",
+    "clang-tidy": "clang-tidy src/* -extra-arg-before=-xc++ -checks=-*,google-* -warnings-as-errors=* -- -std=c++11 -Inode_modules/nan -I$HOME/.node-gyp/$(node -p 'process.version.substring(1)')/include/node",
+    "install": "node install",
+    "docs": "jsdoc --readme README.md -c jsdoc.json",
+    "build": "node-gyp rebuild"
+  },
+  "devDependencies": {
+    "docdash": "^0.4.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "jsdoc": "^3.5.5",
+    "node-abi": "^2.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hackzzila/krypton.git"
+  },
+  "keywords": [
+    "discord",
+    "opus",
+    "lame",
+    "sodium",
+    "pcm",
+    "voice"
+  ],
+  "author": "Hackzzila <admin@hackzzila.com>",
+  "license": "MIT",
+  "gypfile": true,
+  "bugs": {
+    "url": "https://github.com/Hackzzila/krypton/issues"
+  },
+  "homepage": "https://github.com/Hackzzila/krypton#readme",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "os": [
+    "win32",
+    "linux",
+    "darwin"
+  ],
+  "cpu": [
+    "x64",
+    "ia32",
+    "arm",
+    "arm64"
+  ],
+  "files": [
+    "lib/",
+    "src/",
+    "install.js"
+  ],
+  "dependencies": {
+    "nan": "^2.10.0",
+    "node-gyp": "^3.6.2"
+  }
+}

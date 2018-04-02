@@ -1,0 +1,32 @@
+language: node_js
+node_js:
+  - '8'
+jobs:
+  include:
+    - stage: test
+      install:
+        - npm install
+        - node-gyp install
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-4.0
+            - sourceline: ppa:chris-lea/libsodium
+          packages:
+            - clang-4.0
+            - clang-tidy-4.0
+            - libsodium-dev
+            - libmp3lame-dev
+            - libopus-dev
+    - stage: docs
+      install: npm install --ignore-scripts
+      script: bash ./travis/deploy.sh
+      env:
+        - ENCRYPTION_LABEL="25d221d91815"
+        - COMMIT_AUTHOR_EMAIL="admin@hackzzila.com"
+      addons:
+        apt:
+          packages:
+            - doxygen
+dist: trusty
+sudo: required

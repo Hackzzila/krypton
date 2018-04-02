@@ -1,0 +1,9 @@
+node_modules
+build
+builds
+.vscode
+krypton.node
+.DS_Store
+deploy-key
+deploy-key.pub
+docs/
