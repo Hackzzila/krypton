@@ -60,7 +60,8 @@
   "files": [
     "lib/",
     "src/",
-    "install.js"
+    "install.js",
+    "binding.gyp"
   ],
   "dependencies": {
     "nan": "^2.10.0",
