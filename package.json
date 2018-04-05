@@ -61,6 +61,7 @@
     "lib/",
     "src/",
     "install.js",
+    "config.js",
     "binding.gyp"
   ],
   "dependencies": {
