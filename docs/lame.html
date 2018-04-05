@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>pcm.js - Documentation</title>
+    <title>lame - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,42 +27,108 @@
 
 <div id="main">
     
-    <h1 class="page-title">pcm.js</h1>
+    <h1 class="page-title">lame</h1>
     
 
     
 
 
 
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * PCM utilities
- * @namespace pcm
- */
 
-module.exports = {
-  /**
-   * Reduces/increases the volume
-   * @memberof pcm
-   * @param {Buffer&lt;PCM>} data - Input PCM data
-   * @param {Number} [volume = 1] - Volume level, if set to 1 this will act as a passthrough
-   * @returns {NativeFunction&lt;Buffer&lt;PCM>>} - A native function to be run with a {@link Chain}
-   */
-  volume16(data, volume = 1) {
-    return {
-      name: 'PCM::Volume16',
-      args: {
-        data,
-        volume,
-      },
-    };
-  },
-};
-</code></pre>
-        </article>
-    </section>
+<section>
+
+<header>
+    
+        <h2>
+        lame
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lame.js.html">lame.js</a>, <a href="lame.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+        
+            <div class="description"><p>Opus encoding/decoding</p></div>
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="lame.LameEncoder.html">LameEncoder</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
