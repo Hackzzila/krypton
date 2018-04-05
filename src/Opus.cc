@@ -1,3 +1,5 @@
+#ifndef KRYPTON_DISABLE_OPUS
+
 #include "common.h"
 #include "main.h"
 #include "Opus.h"
@@ -240,3 +242,5 @@ namespace Opus {
     exports->Set(Nan::New("OpusEncoder").ToLocalChecked(), tpl->GetFunction());
   }
 }  // namespace Opus
+
+#endif  // KRYPTON_DISABLE_OPUS

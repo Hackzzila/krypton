@@ -7,3 +7,4 @@ krypton.node
 deploy-key
 deploy-key.pub
 docs/
+config.gypi

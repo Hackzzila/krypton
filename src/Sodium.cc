@@ -1,3 +1,5 @@
+#ifndef KRYPTON_DISABLE_SODIUM
+
 #include "main.h"
 #include "Sodium.h"
 #include "Opus.h"
@@ -44,3 +46,5 @@ namespace Sodium {
     return ret;
   }
 }  // namespace Sodium
+
+#endif  // KRYPTON_DISABLE_SODIUM

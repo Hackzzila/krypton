@@ -5,9 +5,19 @@
 #include "PCM.h"
 #include "Sodium.h"
 
+#ifndef KRYPTON_DISABLE_OPUS
 #include <opus/opus.h>
+#else  // KRYPTON_DISABLE_OPUS
+typedef void opus_int16;
+#endif  // KRYPTON_DISABLE_OPUS
+
+#ifndef KRYPTON_DISABLE_LAME
 #include <lame/lame.h>
+#endif  // KRYPTON_DISABLE_LAME
+
+#ifndef KRYPTON_DISABLE_SODIUM
 #include <sodium.h>
+#endif  // KRYPTON_DISABLE_LAME
 
 #include <nan.h>
 #include <node.h>
@@ -244,21 +254,35 @@ void Run(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 }
 
 void OpusVersion(v8::Local<v8::String> property, const Nan::PropertyCallbackInfo<v8::Value>& info) {
+  #ifndef KRYPTON_DISABLE_OPUS
   info.GetReturnValue().Set(Nan::New<v8::String>(opus_get_version_string()).ToLocalChecked());
+  #else  // KRYPTON_DISABLE_OPUS
+  info.GetReturnValue().Set(Nan::Null());
+  #endif  // KRYPTON_DISABLE_OPUS
 }
 
 void LameVersion(v8::Local<v8::String> property, const Nan::PropertyCallbackInfo<v8::Value>& info) {
+  #ifndef KRYPTON_DISABLE_LAME
   info.GetReturnValue().Set(Nan::New<v8::String>(get_lame_version()).ToLocalChecked());
+  #else  // KRYPTON_DISABLE_LAME
+  info.GetReturnValue().Set(Nan::Null());
+  #endif  // KRYPTON_DISABLE_LAME
 }
 
 void SodiumVersion(v8::Local<v8::String> property, const Nan::PropertyCallbackInfo<v8::Value>& info) {
+    #ifndef KRYPTON_DISABLE_SODIUM
   info.GetReturnValue().Set(Nan::New<v8::String>(sodium_version_string()).ToLocalChecked());
+  #else  // KRYPTON_DISABLE_SODIUM
+  info.GetReturnValue().Set(Nan::Null());
+  #endif  // KRYPTON_DISABLE_SODIUM
 }
 
 void NodeInit(v8::Local<v8::Object> exports) {
+  #ifndef KRYPTON_DISABLE_SODIUM
   if (sodium_init() == -1) {
     Nan::ThrowError("Failed to initialize sodium");
   }
+  #endif  // KRYPTON_DISABLE_SODIUM
 
   Lame::KryptonLameEncoder::Init(exports);
   Opus::KryptonOpusEncoder::Init(exports);

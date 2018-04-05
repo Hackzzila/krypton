@@ -1,3 +1,5 @@
+#ifndef KRYPTON_DISABLE_LAME
+
 #include "common.h"
 #include "main.h"
 #include "Lame.h"
@@ -116,3 +118,5 @@ namespace Lame {
     exports->Set(Nan::New("LameEncoder").ToLocalChecked(), tpl->GetFunction());
   }
 }  // namespace Lame
+
+#endif  // KRYPTON_DISABLE_LAME
