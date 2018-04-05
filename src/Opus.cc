@@ -243,4 +243,8 @@ namespace Opus {
   }
 }  // namespace Opus
 
+#else  // KRYPTON_DISABLE_OPUS
+
+#pragma message "opus support disabled"
+
 #endif  // KRYPTON_DISABLE_OPUS

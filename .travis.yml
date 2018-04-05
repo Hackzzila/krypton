@@ -1,32 +1,64 @@
 language: node_js
-node_js:
-  - '8'
+node_js: '8'
+dist: trusty
+sudo: false
 jobs:
   include:
-    - stage: test
-      install:
-        - npm install
-        - node-gyp install
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-4.0
-            - sourceline: ppa:chris-lea/libsodium
-          packages:
-            - clang-4.0
-            - clang-tidy-4.0
-            - libsodium-dev
-            - libmp3lame-dev
-            - libopus-dev
-    - stage: docs
-      install: npm install --ignore-scripts
-      script: bash ./travis/deploy.sh
-      env:
-        - ENCRYPTION_LABEL="25d221d91815"
-        - COMMIT_AUTHOR_EMAIL="admin@hackzzila.com"
-      addons:
-        apt:
-          packages:
-            - doxygen
-dist: trusty
-sudo: required
+  - stage: test
+    install:
+    - npm install
+    - node-gyp install
+    addons:
+      apt:
+        sources:
+        - llvm-toolchain-trusty-4.0
+        - sourceline: ppa:chris-lea/libsodium
+        packages:
+        - clang-4.0
+        - clang-tidy-4.0
+        - libsodium-dev
+        - libmp3lame-dev
+        - libopus-dev
+  - stage: docs
+    install: npm install --ignore-scripts
+    script: bash ./travis/deploy.sh
+    env:
+    - ENCRYPTION_LABEL="25d221d91815"
+    - COMMIT_AUTHOR_EMAIL="admin@hackzzila.com"
+    addons:
+      apt:
+        packages:
+        - doxygen
+  - stage: prebuilts
+    if: tag IS present
+    sudo: required
+    services:
+    - docker
+    install: npm install --ignore-scripts
+    script: docker run -v $TRAVIS_BUILD_DIR:/usr/src hackzzila/krypton-build
+    deploy:
+      provider: releases
+      api_key:
+        secure: mVsRIYXQ+3up0lG99I2K/dvhUlM2sFhnGmKHYwxW8VWFlB9GdPiGI0Gf4HeO/8sx/D3D5wNJB5t/Zer4VCnX3q/STAIjgXcyon5bKMwqfwvA5RofxfzjjzqdX4qv8+c6jn6zwKad1CRAGzSD09ssoatXXigf9IfeqAO02kV+WyocVS5zThyNZvP0ZqRWi4V9YNHmdQZ0MNRCjrlC2G0X5HCUjv+099gnxob+sl/H+PaX5GT5avin2xLKKH02qFlFhGLJ5AtWwhs35PakpQjcnSOOOSvc4epLsAOcJP3VDAEdF/NDn3nCZE1gp7e4ZqyhR8IFJ4Wmkp1znC2cQ9IaSn5faQK6i+viRxa0a/cttyeGFP2cKZYOWpEikH1t7SyZimIsxnwHzlhnNMuuPYTRLij63DgmFFdZQO1tw8TlZFJpowFnPDhMy6Grsd+6ZKZPb34wGK8FSX1/q9JSi090hi/SD8zNrZYCyHUuaa6GnzmUpN0Aysr0npq2H4f9Ca3j8VD7ncjNXVa6un0Nc7r2AtnhhBIn5EyxWy+hmHLrneqR6z8pq+CtdBRD573iGo6u7WH1leLsFF3QI1QbA7icVlmMYqmic6Zj7nyWXWFsAST5aTqN2SS45qN7BFa602HJnJkBG0ak/mUNSKFWzYV+ArNFrJC2WPTH9uQTYjqNsvg=
+      file_glob: true
+      file: builds/*
+      skip_cleanup: true
+      on:
+        tags: true
+        repo: Hackzzila/krypton
+  - stage: prebuilts
+    if: tag IS present
+    os: osx
+    osx_image: xcode6.4
+    install: npm install --ignore-scripts
+    script: node --trace-warnings build
+    deploy:
+      provider: releases
+      api_key:
+        secure: mVsRIYXQ+3up0lG99I2K/dvhUlM2sFhnGmKHYwxW8VWFlB9GdPiGI0Gf4HeO/8sx/D3D5wNJB5t/Zer4VCnX3q/STAIjgXcyon5bKMwqfwvA5RofxfzjjzqdX4qv8+c6jn6zwKad1CRAGzSD09ssoatXXigf9IfeqAO02kV+WyocVS5zThyNZvP0ZqRWi4V9YNHmdQZ0MNRCjrlC2G0X5HCUjv+099gnxob+sl/H+PaX5GT5avin2xLKKH02qFlFhGLJ5AtWwhs35PakpQjcnSOOOSvc4epLsAOcJP3VDAEdF/NDn3nCZE1gp7e4ZqyhR8IFJ4Wmkp1znC2cQ9IaSn5faQK6i+viRxa0a/cttyeGFP2cKZYOWpEikH1t7SyZimIsxnwHzlhnNMuuPYTRLij63DgmFFdZQO1tw8TlZFJpowFnPDhMy6Grsd+6ZKZPb34wGK8FSX1/q9JSi090hi/SD8zNrZYCyHUuaa6GnzmUpN0Aysr0npq2H4f9Ca3j8VD7ncjNXVa6un0Nc7r2AtnhhBIn5EyxWy+hmHLrneqR6z8pq+CtdBRD573iGo6u7WH1leLsFF3QI1QbA7icVlmMYqmic6Zj7nyWXWFsAST5aTqN2SS45qN7BFa602HJnJkBG0ak/mUNSKFWzYV+ArNFrJC2WPTH9uQTYjqNsvg=
+      file_glob: true
+      file: builds/*
+      skip_cleanup: true
+      on:
+        tags: true
+        repo: Hackzzila/krypton

@@ -18,7 +18,9 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "jsdoc": "^3.5.5",
-    "node-abi": "^2.2.0"
+    "node-abi": "^2.2.0",
+    "superagent": "^3.8.2",
+    "tar": "^4.4.1"
   },
   "repository": {
     "type": "git",

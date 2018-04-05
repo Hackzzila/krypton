@@ -119,4 +119,8 @@ namespace Lame {
   }
 }  // namespace Lame
 
+#else  // KRYPTON_DISABLE_LAME
+
+#pragma message "lame support disabled"
+
 #endif  // KRYPTON_DISABLE_LAME

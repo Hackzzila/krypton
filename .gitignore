@@ -8,3 +8,4 @@ deploy-key
 deploy-key.pub
 docs/
 config.gypi
+deps/
