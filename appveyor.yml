@@ -1,0 +1,31 @@
+image: Visual Studio 2017
+
+install:
+  - ps: Install-Product node 8 x64
+  - vcpkg install opus:x64-windows-static libsodium:x64-windows-static opus:x86-windows-static
+  - vcpkg integrate install
+  - npm install --ignore-scripts
+
+test_script:
+  - node --version
+  - npm --version
+
+  - node --throw-deprecation build
+
+cache:
+  - node_modules
+  - c:\tools\vcpkg\installed\
+
+artifacts:
+  - name: prebuilts
+    path: 'builds\*.node'
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: 4AhNDBYFrj2kCzkMF80KYf/CHu1POoY/vjUf0JuZY3Fj9LLI2blI+W+VAKNJ7/Vf
+  artifact: prebuilts
+  on:
+    appveyor_repo_tag: true
+
+build: off
