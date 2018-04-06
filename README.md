@@ -5,11 +5,12 @@
   </p>
 
 [![Build Status](https://travis-ci.org/Hackzzila/krypton.svg?branch=master)](https://travis-ci.org/Hackzzila/krypton)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/Hackzzila/krypton?svg=true)](https://ci.appveyor.com/project/Hackzzila/krypton)
 [![dependencies](https://david-dm.org/Hackzzila/krypton/status.svg)](https://david-dm.org/Hackzzila/krypton)
 [![devDependencies](https://david-dm.org/Hackzzila/krypton/dev-status.svg)](https://david-dm.org/Hackzzila/krypton?type=dev)
 [![npm](https://img.shields.io/npm/dt/krypton.svg)]()
 
-<p><b>Multithreaded audio library for Node.js. Provides behind-the-scenes audio support for <a href="discord.js">discord.js</a></b></p>
+<p><b>Multithreaded audio library for Node.js. Provides behind-the-scenes audio support for <a href="https://discord.js.org">Discord.js</a></b></p>
 
 `npm install krypton`
 
