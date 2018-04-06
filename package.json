@@ -10,7 +10,7 @@
     "clang-tidy": "clang-tidy src/* -extra-arg-before=-xc++ -checks=-*,google-* -warnings-as-errors=* -- -std=c++11 -Inode_modules/nan -I$HOME/.node-gyp/$(node -p 'process.version.substring(1)')/include/node",
     "install": "node install",
     "docs": "jsdoc --readme README.md -c jsdoc.json",
-    "build": "node config && node-gyp rebuild"
+    "build": "node config"
   },
   "devDependencies": {
     "docdash": "^0.4.0",

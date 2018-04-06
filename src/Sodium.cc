@@ -49,6 +49,6 @@ namespace Sodium {
 
 #else  // KRYPTON_DISABLE_SODIUM
 
-#pragma message "sodium support disabled"
+#pragma message("sodium support disabled")
 
 #endif  // KRYPTON_DISABLE_SODIUM

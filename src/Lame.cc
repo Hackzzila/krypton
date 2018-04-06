@@ -93,7 +93,7 @@ namespace Lame {
 
   void KryptonLameEncoder::New(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     if (!info.IsConstructCall()) {
-      return Nan::ThrowTypeError("Use the new operator to construct the OpusEncoder.");
+      return Nan::ThrowTypeError("Use the new operator to construct the LameEncoder.");
     }
 
     OPT_INT_ARG(0, rate, 48000);
@@ -121,6 +121,6 @@ namespace Lame {
 
 #else  // KRYPTON_DISABLE_LAME
 
-#pragma message "lame support disabled"
+#pragma message("lame support disabled")
 
 #endif  // KRYPTON_DISABLE_LAME

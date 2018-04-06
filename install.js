@@ -7,7 +7,7 @@ const { spawn } = require('child_process');
 
 function build() {
   console.log('Download failed, building...');
-  spawn('npm', ['run', 'build'], { stdio: 'inherit' });
+  spawn(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['run', 'build'], { stdio: 'inherit' });
 }
 
 function download(res, asset) {
