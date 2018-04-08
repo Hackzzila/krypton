@@ -2,7 +2,7 @@ const abi = require('node-abi');
 const path = require('path');
 const fs = require('fs');
 const { execSync } = require('child_process');
-const { get, post } = require('superagent');
+const { get } = require('superagent');
 const tar = require('tar');
 const xml = require('xml-js');
 
@@ -113,6 +113,28 @@ async function linux() {
       },
     };
 
+    if (['x64', 'ia32'].includes(arch)) {
+      config.target_defaults.cflags = [
+        '-mavx2',
+      ];
+
+      config.target_defaults.xcode_settings = {
+        OTHER_CFLAGS: [
+          '-mavx2',
+        ],
+      };
+
+      config.target_defaults.msvs_settings = {
+        VCCLCompilerTool: {
+          AdditionalOptions: [
+            '/arch:AVX2',
+          ],
+        },
+      };
+    } else {
+      config.target_defaults.defines.push('KRYPTON_DISABLE_NEON');
+    }
+
     fs.writeFileSync('config.gypi', JSON.stringify(config, undefined, 2));
 
     for (const target of targets) {
@@ -136,6 +158,21 @@ async function windows() {
     const config = {
       target_defaults: {
         defines: ['KRYPTON_DISABLE_LAME', 'SODIUM_STATIC'],
+        cflags: [
+          '-mavx2',
+        ],
+        xcode_settings: {
+          OTHER_CFLAGS: [
+            '-mavx2',
+          ],
+        },
+        msvs_settings: {
+          VCCLCompilerTool: {
+            AdditionalOptions: [
+              '/arch:AVX2',
+            ],
+          },
+        },
       },
     };
 

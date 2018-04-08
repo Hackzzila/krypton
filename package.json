@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "npm run cpplint && npm run clang-tidy && npm run eslint",
-    "cpplint": "./cpplint.py --linelength=200 --filter=-build/header_guard src/*",
+    "cpplint": "./cpplint.py --linelength=500 --filter=-build/header_guard src/*",
     "eslint": "eslint lib/",
     "clang-tidy": "clang-tidy src/* -extra-arg-before=-xc++ -checks=-*,google-* -warnings-as-errors=* -- -std=c++11 -Inode_modules/nan -I$HOME/.node-gyp/$(node -p 'process.version.substring(1)')/include/node",
     "install": "node install",

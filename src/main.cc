@@ -1,9 +1,9 @@
 #include "common.h"
 #include "main.h"
-#include "Lame.h"
-#include "Opus.h"
-#include "PCM.h"
-#include "Sodium.h"
+#include "lame.h"
+#include "opus.h"
+#include "pcm.h"
+#include "sodium.h"
 
 #ifndef KRYPTON_DISABLE_OPUS
 #include <opus/opus.h>
@@ -56,15 +56,15 @@ void doWork(uv_work_t *req) {
 
     Pipe *ret = nullptr;
     if (function.name == "Opus::Encode") {
-      ret = Opus::Encode(static_cast<void *>(args));
+      ret = opus::Encode(static_cast<void *>(args));
     } else if (function.name == "Opus::Decode") {
-      ret = Opus::Decode(static_cast<void *>(args));
+      ret = opus::Decode(static_cast<void *>(args));
     } else if (function.name == "PCM::Volume16") {
-      ret = PCM::Volume16(static_cast<void *>(args));
+      ret = pcm::Volume16(static_cast<void *>(args));
     } else if (function.name == "Sodium::Encrypt") {
-      ret = Sodium::Encrypt(static_cast<void *>(args));
+      ret = sodium::Encrypt(static_cast<void *>(args));
     } else if (function.name == "Lame::Decode") {
-      ret = Lame::Decode(static_cast<void *>(args));
+      ret = lame::Decode(static_cast<void *>(args));
     }
 
     thread->name = function.name;
@@ -84,7 +84,6 @@ void workCallback(uv_work_t *req, int status) {
   v8::Local<v8::Promise::Resolver> promise = thread->promise.Get(isolate);
 
   if (thread->pipe->length > -1) {
-    // Create a new result buffer.
     Nan::MaybeLocal<v8::Object> actualBuffer = Nan::CopyBuffer(thread->pipe->data, thread->pipe->length);
     if (!actualBuffer.IsEmpty()) {
       promise->Resolve(context, actualBuffer.ToLocalChecked());
@@ -142,9 +141,9 @@ void Run(const Nan::FunctionCallbackInfo<v8::Value>& args) {
     function.name = name;
 
     if (name == "Opus::Encode") {
-      Opus::EncodeArgs *args = new Opus::EncodeArgs;
+      opus::EncodeArgs *args = new opus::EncodeArgs;
 
-      Opus::KryptonOpusEncoder *encoder = node::ObjectWrap::Unwrap<Opus::KryptonOpusEncoder>(Nan::To<v8::Object>(oargs->Get(v8::String::NewFromUtf8(isolate, "encoder"))).ToLocalChecked());
+      opus::KryptonOpusEncoder *encoder = node::ObjectWrap::Unwrap<opus::KryptonOpusEncoder>(Nan::To<v8::Object>(oargs->Get(v8::String::NewFromUtf8(isolate, "encoder"))).ToLocalChecked());
 
       args->encoder = encoder->encoder;
       args->channels = encoder->channels;
@@ -159,9 +158,9 @@ void Run(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 
       thread->functions.push_back(function);
     } else if (name == "Opus::Decode") {
-      Opus::DecodeArgs *args = new Opus::DecodeArgs;
+      opus::DecodeArgs *args = new opus::DecodeArgs;
 
-      Opus::KryptonOpusEncoder *decoder = node::ObjectWrap::Unwrap<Opus::KryptonOpusEncoder>(Nan::To<v8::Object>(oargs->Get(v8::String::NewFromUtf8(isolate, "decoder"))).ToLocalChecked());
+      opus::KryptonOpusEncoder *decoder = node::ObjectWrap::Unwrap<opus::KryptonOpusEncoder>(Nan::To<v8::Object>(oargs->Get(v8::String::NewFromUtf8(isolate, "decoder"))).ToLocalChecked());
 
       args->decoder = decoder->decoder;
       args->channels = decoder->channels;
@@ -176,7 +175,7 @@ void Run(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 
       thread->functions.push_back(function);
     } else if (name == "PCM::Volume16") {
-      PCM::Volume16Args *args = new PCM::Volume16Args;
+      pcm::Volume16Args *args = new pcm::Volume16Args;
 
       args->volume = v8::Local<v8::Number>::Cast(oargs->Get(v8::String::NewFromUtf8(isolate, "volume")))->Value();
 
@@ -192,7 +191,7 @@ void Run(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 
       thread->functions.push_back(function);
     } else if (name == "Sodium::Encrypt") {
-      Sodium::EncryptArgs *args = new Sodium::EncryptArgs;
+      sodium::EncryptArgs *args = new sodium::EncryptArgs;
 
       if (oargs->Get(v8::String::NewFromUtf8(isolate, "data"))->IsUndefined() == false) {
         args->data = reinterpret_cast<unsigned char *>(node::Buffer::Data(oargs->Get(v8::String::NewFromUtf8(isolate, "data"))));
@@ -209,9 +208,9 @@ void Run(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 
       thread->functions.push_back(function);
     } else if (name == "Lame::Decode") {
-      Lame::DecodeArgs *args = new Lame::DecodeArgs;
+      lame::DecodeArgs *args = new lame::DecodeArgs;
 
-      Lame::KryptonLameEncoder *decoder = node::ObjectWrap::Unwrap<Lame::KryptonLameEncoder>(Nan::To<v8::Object>(oargs->Get(v8::String::NewFromUtf8(isolate, "decoder"))).ToLocalChecked());
+      lame::KryptonLameEncoder *decoder = node::ObjectWrap::Unwrap<lame::KryptonLameEncoder>(Nan::To<v8::Object>(oargs->Get(v8::String::NewFromUtf8(isolate, "decoder"))).ToLocalChecked());
 
       args->decoder = decoder->decoder;
       args->channels = decoder->channels;
@@ -237,7 +236,6 @@ void Run(const Nan::FunctionCallbackInfo<v8::Value>& args) {
     doWork(req);
 
     if (thread->pipe->length > -1) {
-      // Create a new result buffer.
       Nan::MaybeLocal<v8::Object> actualBuffer = Nan::CopyBuffer(thread->pipe->data, thread->pipe->length);
       if (!actualBuffer.IsEmpty()) {
         args.GetReturnValue().Set(actualBuffer.ToLocalChecked());
@@ -253,30 +251,6 @@ void Run(const Nan::FunctionCallbackInfo<v8::Value>& args) {
   }
 }
 
-void OpusVersion(v8::Local<v8::String> property, const Nan::PropertyCallbackInfo<v8::Value>& info) {
-  #ifndef KRYPTON_DISABLE_OPUS
-  info.GetReturnValue().Set(Nan::New<v8::String>(opus_get_version_string()).ToLocalChecked());
-  #else  // KRYPTON_DISABLE_OPUS
-  info.GetReturnValue().Set(Nan::Null());
-  #endif  // KRYPTON_DISABLE_OPUS
-}
-
-void LameVersion(v8::Local<v8::String> property, const Nan::PropertyCallbackInfo<v8::Value>& info) {
-  #ifndef KRYPTON_DISABLE_LAME
-  info.GetReturnValue().Set(Nan::New<v8::String>(get_lame_version()).ToLocalChecked());
-  #else  // KRYPTON_DISABLE_LAME
-  info.GetReturnValue().Set(Nan::Null());
-  #endif  // KRYPTON_DISABLE_LAME
-}
-
-void SodiumVersion(v8::Local<v8::String> property, const Nan::PropertyCallbackInfo<v8::Value>& info) {
-    #ifndef KRYPTON_DISABLE_SODIUM
-  info.GetReturnValue().Set(Nan::New<v8::String>(sodium_version_string()).ToLocalChecked());
-  #else  // KRYPTON_DISABLE_SODIUM
-  info.GetReturnValue().Set(Nan::Null());
-  #endif  // KRYPTON_DISABLE_SODIUM
-}
-
 void NodeInit(v8::Local<v8::Object> exports) {
   #ifndef KRYPTON_DISABLE_SODIUM
   if (sodium_init() == -1) {
@@ -284,13 +258,45 @@ void NodeInit(v8::Local<v8::Object> exports) {
   }
   #endif  // KRYPTON_DISABLE_SODIUM
 
-  Lame::KryptonLameEncoder::Init(exports);
-  Opus::KryptonOpusEncoder::Init(exports);
+  pcm::init();
+
+  lame::KryptonLameEncoder::Init(exports);
+  opus::KryptonOpusEncoder::Init(exports);
   Nan::SetMethod(exports, "run", Run);
 
-  Nan::SetAccessor(exports, Nan::New<v8::String>("opusVersion").ToLocalChecked(), OpusVersion);
-  Nan::SetAccessor(exports, Nan::New<v8::String>("lameVersion").ToLocalChecked(), LameVersion);
-  Nan::SetAccessor(exports, Nan::New<v8::String>("sodiumVersion").ToLocalChecked(), SodiumVersion);
+  #ifndef KRYPTON_DISABLE_OPUS
+  Nan::Set(exports, Nan::New<v8::String>("opusVersion").ToLocalChecked(), Nan::New<v8::String>(opus_get_version_string()).ToLocalChecked());
+  #else  // KRYPTON_DISABLE_OPUS
+  Nan::Set(exports, Nan::New<v8::String>("opusVersion").ToLocalChecked(), Nan::Null());
+  #endif  // KRYPTON_DISABLE_OPUS
+
+  #ifndef KRYPTON_DISABLE_LAME
+  Nan::Set(exports, Nan::New<v8::String>("lameVersion").ToLocalChecked(), Nan::New<v8::String>(get_lame_version()).ToLocalChecked());
+  #else  // KRYPTON_DISABLE_LAME
+  Nan::Set(exports, Nan::New<v8::String>("lameVersion").ToLocalChecked(), Nan::Null());
+  #endif  // KRYPTON_DISABLE_LAME
+
+  #ifndef KRYPTON_DISABLE_SODIUM
+  Nan::Set(exports, Nan::New<v8::String>("sodiumVersion").ToLocalChecked(), Nan::New<v8::String>(sodium_version_string()).ToLocalChecked());
+  #else  // KRYPTON_DISABLE_SODIUM
+  Nan::Set(exports, Nan::New<v8::String>("sodiumVersion").ToLocalChecked(), Nan::Null());
+  #endif  // KRYPTON_DISABLE_SODIUM
+
+  #ifdef __AVX512F__
+  Nan::Set(exports, Nan::New<v8::String>("volume").ToLocalChecked(), Nan::New<v8::String>("AVX-512").ToLocalChecked());
+  #endif  // __AVX512F__
+
+  #if defined(__AVX2__) && !defined(__AVX512F__)
+  Nan::Set(exports, Nan::New<v8::String>("volume").ToLocalChecked(), Nan::New<v8::String>("AVX2").ToLocalChecked());
+  #endif
+
+  #if defined(__ARM_NEON) && !defined(KRYPTON_DISABLE_NEON)
+  Nan::Set(exports, Nan::New<v8::String>("volume").ToLocalChecked(), Nan::New<v8::String>("NEON").ToLocalChecked());
+  #endif
+
+  #if !defined(__AVX2__) && !defined(__AVX512F__) && (!defined(__ARM_NEON) || defined(KRYPTON_DISABLE_NEON))
+  Nan::Set(exports, Nan::New<v8::String>("volume").ToLocalChecked(), Nan::Null());
+  #endif
 }
 
 NODE_MODULE(krypton, NodeInit)

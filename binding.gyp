@@ -3,7 +3,7 @@
     "./config.gypi"
   ],
   "targets": [
-     {
+    {
       'target_name': 'krypton',
       'cflags': [
         '-pthread',
@@ -25,10 +25,13 @@
       ],
       'sources': [
         'src/main.cc',
-        'src/Lame.cc',
-        'src/Opus.cc',
-        'src/PCM.cc',
-        'src/Sodium.cc',
+        'src/lame.cc',
+        'src/opus.cc',
+        'src/pcm.cc',
+        'src/pcm-avx2.cc',
+        'src/pcm-avx512.cc',
+        'src/pcm-neon.cc',
+        'src/sodium.cc',
       ],
       'xcode_settings': {
         'GCC_ENABLE_CPP_RTTI': 'YES',
