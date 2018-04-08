@@ -56,8 +56,11 @@ Pipe *Volume16(void *req) {
 
         __m256i out = _mm256_min_epi32(min, _mm256_max_epi32(max, _mm256_mullo_epi32(d, vol)));
 
+        int32_t out32[8];
+        _mm256_storeu_si256(reinterpret_cast<__m256i *>(out32), out);
+
         for (int n = 0; n < 8; n++) {
-          sdata[i + n] = static_cast<int16_t>(_mm256_extract_epi32(out, n));
+          sdata[i + n] = static_cast<int16_t>(out32[n]);
         }
       }
     } else if (volumeArgs->volume < 1) {
@@ -66,7 +69,7 @@ Pipe *Volume16(void *req) {
       for (int i = 0; i < complete; i += 16) {
         __m256i d = _mm256_loadu_si256(reinterpret_cast<__m256i *>(data + i));
 
-        __m256i out = _mm256_mulhrs_epi16(d, vol);
+		__m256i out = _mm256_mulhrs_epi16(d, vol);
 
         _mm256_storeu_si256(reinterpret_cast<__m256i *>(sdata + i), out);
       }
@@ -78,8 +81,11 @@ Pipe *Volume16(void *req) {
 
         __m256i out = _mm256_min_epi32(min, _mm256_max_epi32(max, _mm256_cvtps_epi32(_mm256_mul_ps(d, vol))));
 
+        int32_t out32[8];
+        _mm256_storeu_si256(reinterpret_cast<__m256i *>(out32), out);
+
         for (int n = 0; n < 8; n++) {
-          sdata[i + n] = static_cast<int16_t>(_mm256_extract_epi32(out, n));
+          sdata[i + n] = static_cast<int16_t>(out32[n]);
         }
       }
     }
