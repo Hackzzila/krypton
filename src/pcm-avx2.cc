@@ -69,7 +69,7 @@ Pipe *Volume16(void *req) {
       for (int i = 0; i < complete; i += 16) {
         __m256i d = _mm256_loadu_si256(reinterpret_cast<__m256i *>(data + i));
 
-		__m256i out = _mm256_mulhrs_epi16(d, vol);
+        __m256i out = _mm256_mulhrs_epi16(d, vol);
 
         _mm256_storeu_si256(reinterpret_cast<__m256i *>(sdata + i), out);
       }
