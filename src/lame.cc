@@ -42,10 +42,8 @@ Pipe *Decode(void *req) {
 
   int i = 0;
   for (int s = 0; s < samples; s++) {
-    sdata[i] = lpcm[s];
-    i++;
-    sdata[i] = rpcm[s];
-    i++;
+    sdata[i++] = lpcm[s];
+    sdata[i++] = rpcm[s];
   }
 
   free(lpcm);
