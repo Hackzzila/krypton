@@ -64,7 +64,7 @@ Pipe *Decode(void *req) {
     length = pipe->length;
   }
 
-  ret->length = opus_decode(decodeArgs->decoder, data, length, reinterpret_cast<opus_int16 *>(ret->data), MAX_FRAME_SIZE, 0) * 2;
+  ret->length = opus_decode(decodeArgs->decoder, data, length, reinterpret_cast<opus_int16 *>(ret->data), MAX_FRAME_SIZE, 0) * decodeArgs->channels * sizeof(opus_int16);
 
   if (args->from == "Pipe") {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
