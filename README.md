@@ -37,7 +37,7 @@ First install opus, sodium, and lame. This can be done on Ubuntu with the follow
 sudo apt-get install libopus-dev libsodium-dev libmp3lame-dev
 ```
 
-Then you can install with npm.
+Then you can install krypton with npm.
 ```bash
 npm i krypton
 ```
@@ -61,4 +61,18 @@ Then you can build krypton if needed.
 cd node_modules/krypton
 node-gyp rebuild
 cd ../..
+```
+
+### macOS
+
+First install [Homebrew](https://brew.sh)
+
+Then install opus, sodium, and lame with Homebrew.
+```bash
+brew install opus libsodium lame
+```
+
+Then you can install krypton with npm.
+```bash
+npm i krypton
 ```
