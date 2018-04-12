@@ -17,3 +17,48 @@
 </div>
 
 ------
+
+## Installation
+
+If you are on a machine with AVX-512 support (such as Google Cloud Compute), enable AVX-512 by appending `--krypton-enable-avx-512` when installing with npm.
+
+If you are on an old machine without AVX-2 support, append `--krypton-disable-avx2` when installing with npm.
+
+If you would like to disable Neon on arm64, append `--krypton-disable-neon` when installing with npm.
+
+You can disable any module when installing by appending `--krypton-disable-MODULENAME` (e.g. `--krypton-disable-opus`).
+
+**Note:** Passing `--krypton-` flags will **NOT** work with Yarn.
+
+### Linux
+
+First install opus, sodium, and lame. This can be done on Ubuntu with the following command.
+```bash
+sudo apt-get install libopus-dev libsodium-dev libmp3lame-dev
+```
+
+Then you can install with npm.
+```bash
+npm i krypton
+```
+
+### Windows
+
+First install [vcpkg](https://github.com/Microsoft/vcpkg) and setup user-wide integration.
+
+Then install opus and sodium with vcpkg. If you are on a 32 bit system, remove `:x64-windows`.
+```bash
+.\vcpkg install opus:x64-windows libsodium:x64-windows
+```
+
+Then you can install with npm.
+```bash
+npm i krypton --krypton-disable-lame
+```
+
+Then you can build krypton if needed.
+```bash
+cd node_modules/krypton
+node-gyp rebuild
+cd ../..
+```
