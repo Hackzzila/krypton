@@ -65,7 +65,7 @@ Pipe *Decode(void *req) {
 }
 
 KryptonLameEncoder::KryptonLameEncoder(int rate, int channels, int quality):
-    rate(rate), channels(channels), quality(quality) {
+    rate(rate), channels(channels), quality(quality), encoder(nullptr) {
   decoder = hip_decode_init();
 }
 

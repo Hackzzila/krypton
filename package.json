@@ -4,10 +4,11 @@
   "description": "Fast voice for Discord",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run cpplint && npm run clang-tidy && npm run eslint",
+    "test": "npm run cpplint && npm run clang-tidy && npm run cppcheck && npm run eslint",
     "cpplint": "./cpplint.py --linelength=500 --filter=-build/header_guard src/*",
     "eslint": "eslint lib/",
-    "clang-tidy": "clang-tidy src/* -extra-arg-before=-xc++ -checks=-*,google-* -warnings-as-errors=* -- -std=c++11 -Inode_modules/nan -I$HOME/.node-gyp/$(node -p 'process.version.substring(1)')/include/node",
+    "clang-tidy": "clang-tidy src/* -extra-arg-before=-xc++ -checks=-*,google-*,performance-*,portability-* -warnings-as-errors=* -- -std=c++11 -Inode_modules/nan -I$HOME/.node-gyp/$(node -p 'process.version.substring(1)')/include/node",
+    "cppcheck": "cppcheck --enable=warning --enable=performance --enable=portability --enable=unusedFunction --enable=missingInclude --error-exitcode=1 --force src/*",
     "install": "node install",
     "docs": "jsdoc --readme README.md -c jsdoc.json",
     "build": "node config"

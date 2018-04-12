@@ -4,7 +4,8 @@
 #include <nan.h>
 #include <v8.h>
 
-#include <string.h>
+#include <string>
+#include <vector>
 
 #define FRAME_SIZE 960
 #define MAX_FRAME_SIZE 6*960
