@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Chain.html">Chain</a><ul class='methods'><li data-type='method'><a href="Chain.html#do">do</a></li><li data-type='method'><a href="Chain.html#run">run</a></li></ul></li><li><a href="lame.LameEncoder.html">LameEncoder</a><ul class='methods'><li data-type='method'><a href="lame.LameEncoder.html#encode">encode</a></li></ul></li><li><a href="opus.OpusEncoder.html">OpusEncoder</a><ul class='methods'><li data-type='method'><a href="opus.OpusEncoder.html#encode">encode</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="lame.html">lame</a></li><li><a href="opus.html">opus</a></li><li><a href="pcm.html">pcm</a><ul class='methods'><li data-type='method'><a href="pcm.html#.volume16">volume16</a></li></ul></li><li><a href="sodium.html">sodium</a><ul class='methods'><li data-type='method'><a href="sodium.html#.encrypt">encrypt</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#do">do</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Chain.html">Chain</a><ul class='methods'><li data-type='method'><a href="Chain.html#do">do</a></li><li data-type='method'><a href="Chain.html#run">run</a></li></ul></li><li><a href="lame.LameEncoder.html">LameEncoder</a><ul class='methods'><li data-type='method'><a href="lame.LameEncoder.html#encode">encode</a></li></ul></li><li><a href="opus.OpusEncoder.html">OpusEncoder</a><ul class='methods'><li data-type='method'><a href="opus.OpusEncoder.html#decode">decode</a></li><li data-type='method'><a href="opus.OpusEncoder.html#encode">encode</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="lame.html">lame</a></li><li><a href="opus.html">opus</a></li><li><a href="pcm.html">pcm</a><ul class='methods'><li data-type='method'><a href="pcm.html#.volume16">volume16</a></li></ul></li><li><a href="sodium.html">sodium</a><ul class='methods'><li data-type='method'><a href="sodium.html#.encrypt">encrypt</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#do">do</a></li></ul>
 </nav>
 
 <div id="main">
@@ -229,7 +229,173 @@
 
     
 
-    <h4 class="name" id="encode"><span class="type-signature"></span>encode<span class="signature">(data)</span><span class="type-signature"> &rarr; {<a href="global.html#NativeFunction">NativeFunction</a>.&lt;Buffer.&lt;Opus>>}</span></h4>
+    <h4 class="name" id="decode"><span class="type-signature"></span>decode<span class="signature">(data<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#NativeFunction">NativeFunction</a>.&lt;Buffer.&lt;PCM>>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="opus.js.html">opus.js</a>, <a href="opus.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Buffer.&lt;Opus></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The input opus data,
+may be undefined if piping from another NativeFunction</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>A native function to be run with a <a href="Chain.html"><code>Chain</code></a></li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#NativeFunction">NativeFunction</a>.&lt;Buffer.&lt;PCM>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="encode"><span class="type-signature"></span>encode<span class="signature">(data<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#NativeFunction">NativeFunction</a>.&lt;Buffer.&lt;Opus>>}</span></h4>
 
     
 
@@ -303,6 +469,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -328,10 +496,21 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>The input pcm data, may be null if piping from another NativeFunction</p></td>
+            <td class="description last"><p>The input pcm data,
+may be undefined if piping from another NativeFunction</p></td>
         </tr>
 
     
@@ -395,7 +574,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Apr 12 2018 18:30:55 GMT+0000 (UTC) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Apr 12 2018 20:24:07 GMT+0000 (UTC) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
