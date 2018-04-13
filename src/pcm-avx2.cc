@@ -91,8 +91,6 @@ Pipe *Volume16(void *req) {
     }
 
     ret->data = reinterpret_cast<char *>(sdata);
-
-    free(data);
   }
 
   if (args->from == "Pipe") {
