@@ -21,7 +21,7 @@ Pipe *Decode(void *req) {
 
   unsigned char *data = decodeArgs->data;
   size_t length = decodeArgs->length;
-  if (args->from == "Pipe") {
+  if (args->pipe) {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
 
     data = reinterpret_cast<unsigned char *>(pipe->data);
@@ -51,7 +51,7 @@ Pipe *Decode(void *req) {
 
   ret->data = reinterpret_cast<char *>(sdata);
 
-  if (args->from == "Pipe") {
+  if (args->pipe) {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
 
     free(pipe->data);
@@ -65,7 +65,7 @@ Pipe *Decode(void *req) {
 }
 
 KryptonLameEncoder::KryptonLameEncoder(int rate, int channels, int quality):
-    rate(rate), channels(channels), quality(quality), encoder(nullptr) {
+    encoder(nullptr), rate(rate), channels(channels), quality(quality) {
   decoder = hip_decode_init();
 }
 

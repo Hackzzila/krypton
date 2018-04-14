@@ -14,11 +14,11 @@
 
 typedef struct NativeFunction {
   std::string name;
-  void *args;
+  void *args = nullptr;
 } NativeFunction;
 
 typedef struct Pipe {
-  char *data;
+  char *data = nullptr;
   int length;
   std::string error;
 } Pipe;
@@ -31,10 +31,8 @@ typedef struct ThreadData {
 } ThreadData;
 
 typedef struct Args {
-  std::string from;
-  void *args;
-  void *pipe;
-  bool last = false;
+  void *args = nullptr;
+  void *pipe = nullptr;
 } Args;
 
 #endif  // KRYPTON_SRC_MAIN_H_

@@ -22,7 +22,7 @@ Pipe *Encrypt(void *req) {
   int length = encryptArgs->length;
   unsigned char *data = encryptArgs->data;
 
-  if (args->from == "Pipe") {
+  if (args->pipe) {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
 
     length = pipe->length;
@@ -33,7 +33,7 @@ Pipe *Encrypt(void *req) {
   ret->data = static_cast<char *>(malloc(ret->length));
   crypto_secretbox_easy(reinterpret_cast<unsigned char *>(ret->data), data, length, encryptArgs->nonce, encryptArgs->key);
 
-  if (args->from == "Pipe") {
+  if (args->pipe) {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
 
     free(pipe->data);

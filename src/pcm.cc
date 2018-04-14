@@ -18,7 +18,7 @@ Pipe *Volume16(void *req) {
 
   int length = volumeArgs->length / 2;
   int16_t *data = volumeArgs->data;
-  if (args->from == "Pipe") {
+  if (args->pipe) {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
 
     length = pipe->length / 2;
@@ -42,7 +42,7 @@ Pipe *Volume16(void *req) {
     ret->data = reinterpret_cast<char *>(sdata);
   }
 
-  if (args->from == "Pipe") {
+  if (args->pipe) {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
 
     if (volumeArgs->volume != 1) {

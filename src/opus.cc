@@ -24,7 +24,7 @@ Pipe *Encode(void *req) {
   ret->data = static_cast<char *>(malloc(MAX_PACKET_SIZE));
 
   const opus_int16 *pcm = encodeArgs->pcm;
-  if (args->from == "Pipe") {
+  if (args->pipe) {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
 
     pcm = reinterpret_cast<opus_int16 *>(pipe->data);
@@ -35,7 +35,7 @@ Pipe *Encode(void *req) {
 
   ret->length = static_cast<int>(length);
 
-  if (args->from == "Pipe") {
+  if (args->pipe) {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
 
     free(pipe->data);
@@ -57,7 +57,7 @@ Pipe *Decode(void *req) {
 
   unsigned char *data = decodeArgs->data;
   opus_int32 length = decodeArgs->length;
-  if (args->from == "Pipe") {
+  if (args->pipe) {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
 
     data = reinterpret_cast<unsigned char *>(pipe->data);
@@ -66,7 +66,7 @@ Pipe *Decode(void *req) {
 
   ret->length = opus_decode(decodeArgs->decoder, data, length, reinterpret_cast<opus_int16 *>(ret->data), MAX_FRAME_SIZE, 0) * decodeArgs->channels * sizeof(opus_int16);
 
-  if (args->from == "Pipe") {
+  if (args->pipe) {
     Pipe *pipe = static_cast<Pipe *>(args->pipe);
 
     free(pipe->data);

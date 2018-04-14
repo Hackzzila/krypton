@@ -43,15 +43,7 @@ void doWork(uv_work_t *req) {
     NativeFunction function = thread->functions[i];
     Args *args = new Args;
     args->args = function.args;
-
-    if (i == thread->functions.size() - 1) {
-      args->last = true;
-    }
-
-    if (pipe != nullptr) {
-      args->from = "Pipe";
-      args->pipe = pipe;
-    }
+    args->pipe = pipe;
 
     Pipe *ret = nullptr;
     if (function.name == "Opus::Encode") {
