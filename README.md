@@ -12,7 +12,7 @@
 
 <p><b>Multithreaded audio library for Node.js. Provides behind-the-scenes audio support for <a href="https://discord.js.org">Discord.js</a> and <a href="https://github.com/hydrabolt/prism-media">Prism</a></b></p>
 
-`npm install krypton`
+`npm install Hackzzila/krypton`
 
 </div>
 
