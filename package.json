@@ -21,7 +21,7 @@
     "jsdoc": "^3.5.5",
     "node-abi": "^2.2.0",
     "superagent": "^3.8.2",
-    "tar": "^4.4.1",
+    "tar": "^4.4.15",
     "xml-js": "^1.6.2"
   },
   "repository": {
